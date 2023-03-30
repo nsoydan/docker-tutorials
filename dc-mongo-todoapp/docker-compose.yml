@@ -1,0 +1,22 @@
+version: "3.4"
+services:
+  todo-app:       # bir servis adı verebiliriz 
+    container_name: dc-todo-app    # özel bir servis adı verebiliriz
+    build: .      # dockerfile ı build ederek ilerle
+    depends_on:
+      - mongodb
+    ports:
+      - 3000:3000
+  mongodb:          # bir servis adı veririz ve bu servis ismini kod içinde endpoint içinde kullanırız.mongodb://mongodb:27017/todos"
+    image: mongo    # dışarıdan bir image al ve kullan, mongodb için bir dockerfile yok
+    ports:
+      - 27017:27017    
+    volumes:
+      - todo-app-data:/data/db
+volumes:
+  todo-app-data:
+
+
+
+
+# app.js içinde mongoya bağlantı yaparken mongodb://mongodb:27017/todos şeklinde serviz adı 127.0.0.1/mongodb-alias yerine yazılır
